@@ -2,9 +2,20 @@ package main
 
 import (
     "fmt"
+    "bufio"
+    "os"
 )
 
 func main(){
-    fmt.Println("Packet Sniffer v0.0.1")
+    
+    reader := bufio.NewReader(os.Stdin)
+    fmt.Println("Simple Shell")
     fmt.Println("---------------------")
+    
+    for {
+        fmt.Print("-> ")
+        text, _ := reader.ReadString('\n')        
+        fmt.Println(text)
+    }
+    
 }
