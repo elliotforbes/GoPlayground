@@ -32,7 +32,6 @@ func getChildren(a Node) (b, c item) {
 
 func main(){
     
-<<<<<<< HEAD
     a := item{"1", 2}
     b := item{"2", 3}
     c := item{"3", 4}
@@ -44,16 +43,4 @@ func main(){
     
     fmt.Println(left)
     fmt.Println(right)
-=======
-    reader := bufio.NewReader(os.Stdin)
-    fmt.Println("Simple Shell")
-    fmt.Println("---------------------")
-    
-    for {
-        fmt.Print("-> ")
-        text, _ := reader.ReadString('\n')        
-        fmt.Println(text)
-    }
-    
->>>>>>> 388c74c83e9ee93e7a0befe6775010fe907cfa59
 }
