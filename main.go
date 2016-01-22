@@ -2,8 +2,9 @@ package main
 
 import (
     "fmt"
-    "bufio"
-    "os"
+    "html"
+    "log"
+    "net/http"
 )
 
 type item struct {
@@ -30,17 +31,11 @@ func getChildren(a Node) (b, c item) {
     return
 }
 
-func main(){
-    
-    a := item{"1", 2}
-    b := item{"2", 3}
-    c := item{"3", 4}
-      
-    d := Node{a, b, c}
-   
-    
-    left, right := getChildren(d)
-    
-    fmt.Println(left)
-    fmt.Println(right)
+func main() {
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
+    })
+
+    log.Fatal(http.ListenAndServe(":8081", nil))
+
 }
