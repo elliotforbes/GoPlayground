@@ -2,38 +2,31 @@ package main
 
 import (
     "fmt"
-    "html"
     "log"
     "net/http"
+    "sync"
 )
 
-type item struct {
-    node string
-    value int
+var mu sync.Mutex
+var count int
+
+func echoString(w http.ResponseWriter, r *http.Request){
+    fmt.Fprintf(w, "hello, World!")
 }
 
-type Node struct {
-    head item
-    left item
-    right item
-}
-
-func split(x int) (a, b, c int){
-    a = 1
-    b = 2
-    c = 3
-    return
-}
-
-func getChildren(a Node) (b, c item) {
-    b = a.left
-    c = a.right
-    return
+func counter(w http.ResponseWriter, r *http.Request){
+    mu.Lock()
+    count++
+    fmt.Fprintf(w, "Count %d\n", count)
+    mu.Unlock()
 }
 
 func main() {
-    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
+    http.HandleFunc("/", echoString)
+    http.HandleFunc("/count", counter)
+    
+    http.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
+        http.ServeFile(w, r, r.URL.Path[1:])
     })
     
     http.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request){
