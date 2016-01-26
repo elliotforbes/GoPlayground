@@ -21,9 +21,15 @@ func counter(w http.ResponseWriter, r *http.Request){
     mu.Unlock()
 }
 
+func echoDetails(w http.ResponseWriter, r *http.Request){
+    fmt.Fprintf(w, "%s", r.Body);
+}
+
 func main() {
     http.HandleFunc("/", echoString)
     http.HandleFunc("/count", counter)
+    
+    http.HandleFunc("/details", echoDetails)
     
     http.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
         http.ServeFile(w, r, r.URL.Path[1:])
