@@ -25,9 +25,15 @@ func echoDetails(w http.ResponseWriter, r *http.Request){
     fmt.Fprintf(w, "%s", r.Body);
 }
 
+func returnJson(w https.ResponseWriter, r *http.Request){
+    fmt.Fprintf(w, "{ 'message' : 'hello world'}");
+}
+
 func main() {
     http.HandleFunc("/", echoString)
     http.HandleFunc("/count", counter)
+    
+    http.HandleFunc("/json", returnJson)
     
     http.HandleFunc("/details", echoDetails)
     
