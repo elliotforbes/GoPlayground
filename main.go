@@ -4,6 +4,7 @@ import (
     "fmt"
     "log"
     "net/http"
+    "sync"
 )
 
 type article struct {
